@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager2.setAdapter(new SliderAdapter(sliderVideojuegos, viewPager2));
         viewPager2.setClipToPadding(false);
+        viewPager2.setClipChildren(false);
         viewPager2.setOffscreenPageLimit(3);
         viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_ALWAYS);
 
