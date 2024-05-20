@@ -34,20 +34,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        videojuegoList.add(new Videojuego("Elden Ring", "RPG", "From Software", 2022, "https://image.api.playstation.com/vulcan/ap/rnd/202107/1612/esnQejHW2fLjVn3QsqMORML0.png"));
-        videojuegoList.add(new Videojuego("Cyberpunk 2077", "RPG", "CD Project Red", 2020, "https://www.dolby.com/siteassets/xf-site/content-detail-pages/cyberpunk-2077.jpg"));
-        videojuegoList.add(new Videojuego("Titan Quest", "RPG", "Iron Lore Entertainment", 2006, "https://cdn1.epicgames.com/offer/096d7313d4ae432f9327081a45db439d/EGS_TitanQuestAnniversaryEdition_IronLoreEntertainmentTHQNordic_S2_1200x1600-0a7aa9a28c2e334b0cae858ce19977a7"));
-        videojuegoList.add(new Videojuego("Age of Empires II: Definitive Edition", "RTS", "Forgotten Empires", 2019, "https://static.wikia.nocookie.net/ageofempires/images/9/95/Age2de-library-boxart.jpg.jpg/revision/latest?cb=20221101191630&path-prefix=es"));
-        videojuegoList.add(new Videojuego("Los Sims 4", "Simulación", "Maxis", 2014, "https://sm.ign.com/ign_es/game/l/los-sims-4/los-sims-4_c8f4.jpg"));
-        videojuegoList.add(new Videojuego("Forza Horizon 4", "Carreras", "Playground Games", 2018, "https://store-images.s-microsoft.com/image/apps.36093.14343301090572358.2000000000007864116.1feb0fed-abe9-4849-b638-8d7eca69cff4"));
-        videojuegoList.add(new Videojuego("New Super Mario Bros U Deluxe", "Plataformas", "Nintendo", 2019, "https://i.pinimg.com/736x/35/08/1c/35081c1b20e869d7efd28c928889ac6b.jpg"));
-
+        videojuegoList.add(new Videojuego("Player Unknown Battlegrounds", "Shooter", "Krafton Inc", 2017, "https://image.api.playstation.com/vulcan/ap/rnd/202404/0504/c584205a4d3b37877102318d24775372f9337f19309c7003.jpg"));
+        videojuegoList.add(new Videojuego("Jump King", "Plataformas", "Nexile", 2024, "https://store-images.s-microsoft.com/image/apps.43518.14346211770606155.4d34dee5-ab84-4876-83bd-1e181ab60f68.aed7275a-ee75-42b6-b785-0c00fea05e73"));
+        videojuegoList.add(new Videojuego("Stardew Valley", "Simulación", "ConcernedApe", 2016, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAkTvqNvPZdF1XMMo3r1H9qZJdFyEgcoJIpOQOXRZ8Rg&s"));
+        videojuegoList.add(new Videojuego("Baldur's Gate 3", "RPG", "Larian Studios", 2023, "https://cdn2.steamgriddb.com/grid/5cdf5c84489e801e6bac5693b1c8e290.png"));
+        videojuegoList.add(new Videojuego("Sid Meier's Civilization VI", "Estrategia", "Firaxis Gamer", 2016, "https://m.media-amazon.com/images/I/A1BceoX-6nL._AC_UF894,1000_QL80_.jpg"));
+        videojuegoList.add(new Videojuego("Rocket League", "Carreras", "Psyonix", 2015, "https://m.media-amazon.com/images/M/MV5BMWE1NjRiMGEtMTUyMy00ODVkLWE2OWMtY2VjZjc3OGEwN2Q5XkEyXkFqcGdeQXVyNTgyNTA4MjM@._V1_FMjpg_UX1000_.jpg"));
+        videojuegoList.add(new Videojuego("NBA 2K24", "Deportes", "Visual Concepts", 2023, "https://store-images.s-microsoft.com/image/apps.11707.14149820581167521.ee00106c-c535-40d2-8892-1082ebcf87c0.4bed6227-a0cf-48b9-88d6-febe9c6c65eb"));
 
         proximoVideojuegoList.add(new Videojuego("Black Mith: Wukong", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
-        proximoVideojuegoList.add(new Videojuego("Black Mith: Wukon", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
-        proximoVideojuegoList.add(new Videojuego("Black Mith: Wukon", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
-        proximoVideojuegoList.add(new Videojuego("Black Mith: Wukon", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
-        proximoVideojuegoList.add(new Videojuego("Black Mith: Wukon", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
+        proximoVideojuegoList.add(new Videojuego("EA FC 25", "Deportes", "Electronic Arts", 2024, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf1o-UyVh_pRCtn8oPKTjrqYwm8bvQL5qGkRKvLNmcvw&s"));
+        proximoVideojuegoList.add(new Videojuego("Frostpunk 2", "Estrategia", "11 Bit Studios", 2024, "https://data.xxlgamer.com/products/5667/6NX2JWouwri5cG-big.jpg"));
+        proximoVideojuegoList.add(new Videojuego("Stalker 2: Heart of Chernobyl", "Shooter", "GSC Game World", 2024, "https://upload.wikimedia.org/wikipedia/en/8/80/STALKER_2_cover_art.jpg"));
+        proximoVideojuegoList.add(new Videojuego("Trans-Siberian Railway Simulator ", "Simulación", "Pentacle", 2024, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7gA3-5VSqXgYRM3UnOB6O9mQ6dTrq8cuGzg&s"));
+        proximoVideojuegoList.add(new Videojuego("Titan Quest II", "RPG", "Grimlore Games", 2024, "https://image.api.playstation.com/vulcan/ap/rnd/202308/0412/5f29b8a9df639fa8cf89ea61346a6eabd96257de5505d9f4.jpg"));
+        proximoVideojuegoList.add(new Videojuego("F1 24", "Carreras", "Codemasters", 2024, "https://image.api.playstation.com/vulcan/ap/rnd/202404/0814/4b28d6615b99f1c325c5f9e6b15a362116c19fff01e37e62.png"));
 
         generoList.add(0, "RPG");
         generoList.add(1, "Shooter");
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         generoList.add(3, "Carreras");
         generoList.add(4, "Simulación");
         generoList.add(5, "Deportes");
-        generoList.add(5, "Estrategia");
+        generoList.add(6, "Estrategia");
 
         initView();
         banners();
