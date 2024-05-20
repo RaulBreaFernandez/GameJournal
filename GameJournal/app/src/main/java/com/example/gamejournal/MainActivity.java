@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewPager2;
     private Handler slideHandler = new Handler();
     private List<Videojuego> videojuegoList = new ArrayList<>();
+    private List<Videojuego> proximoVideojuegoList = new ArrayList<>();
+    private List<String> generoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,22 @@ public class MainActivity extends AppCompatActivity {
         videojuegoList.add(new Videojuego("Age of Empires II: Definitive Edition", "RTS", "Forgotten Empires", 2019, "https://static.wikia.nocookie.net/ageofempires/images/9/95/Age2de-library-boxart.jpg.jpg/revision/latest?cb=20221101191630&path-prefix=es"));
         videojuegoList.add(new Videojuego("Los Sims 4", "Simulación", "Maxis", 2014, "https://sm.ign.com/ign_es/game/l/los-sims-4/los-sims-4_c8f4.jpg"));
         videojuegoList.add(new Videojuego("Forza Horizon 4", "Carreras", "Playground Games", 2018, "https://store-images.s-microsoft.com/image/apps.36093.14343301090572358.2000000000007864116.1feb0fed-abe9-4849-b638-8d7eca69cff4"));
-        videojuegoList.add(new Videojuego("New Super Mario Bros U Deluxe", "Plataformas", "Nintendo", 2019, "https://i.pinimg.com/736x/35/08/1c/35081c1b20e869d7efd28c928889ac6b.jpg") );
+        videojuegoList.add(new Videojuego("New Super Mario Bros U Deluxe", "Plataformas", "Nintendo", 2019, "https://i.pinimg.com/736x/35/08/1c/35081c1b20e869d7efd28c928889ac6b.jpg"));
+
+
+        proximoVideojuegoList.add(new Videojuego("Black Mith: Wukong", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
+        proximoVideojuegoList.add(new Videojuego("Black Mith: Wukon", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
+        proximoVideojuegoList.add(new Videojuego("Black Mith: Wukon", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
+        proximoVideojuegoList.add(new Videojuego("Black Mith: Wukon", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
+        proximoVideojuegoList.add(new Videojuego("Black Mith: Wukon", "RPG", "Game Science", 2024, "https://pics.filmaffinity.com/black_myth_wukong-856105810-large.jpg"));
+
+        generoList.add(0, "RPG");
+        generoList.add(1, "Shooter");
+        generoList.add(2, "Plataformas");
+        generoList.add(3, "Carreras");
+        generoList.add(4, "Simulación");
+        generoList.add(5, "Deportes");
+        generoList.add(5, "Estrategia");
 
         initView();
         banners();
@@ -52,26 +69,18 @@ public class MainActivity extends AppCompatActivity {
         adpaterTendencias = new VideojuegosAdapter(videojuegoList, this);
         recyclerViewTendencias.setAdapter(adpaterTendencias);
         // Configuración del adaptador y del RecyclerView para nuevos lanzamientos
-        adapterNuevosLanzamientos = new VideojuegosAdapter(videojuegoList, this);
+        adapterNuevosLanzamientos = new VideojuegosAdapter(proximoVideojuegoList, this);
         recyclerViewNuevosLanzamientos.setAdapter(adapterNuevosLanzamientos);
+        // Configuración del adaptador y del RecyclerView para los géneros
+        adapterGenero = new VideojuegosGeneroAdapter(generoList, this);
+        recyclerViewGenero.setAdapter(adapterGenero);
     }
 
     private void loadVideojuegos() {
-        // Simula un tiempo de carga
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Una vez cargados los datos, oculta las barras de progreso
-                progressBarTendencias.setVisibility(View.GONE);
-                progressBarGenero.setVisibility(View.GONE);
-                progressBarNuevosLanzamientos.setVisibility(View.GONE);
-                // Notifica a los adaptadores que se han actualizado los datos
-                adpaterTendencias.notifyDataSetChanged();
-                adapterNuevosLanzamientos.notifyDataSetChanged();
-            }
-        }, 2000); // Simula un tiempo de carga de 2 segundos
-
+            // Una vez cargados los datos, oculta las barras de progreso
+            progressBarTendencias.setVisibility(View.GONE);
+            progressBarGenero.setVisibility(View.GONE);
+            progressBarNuevosLanzamientos.setVisibility(View.GONE);
     }
 
     private void banners() {
@@ -85,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         sliderVideojuegos.add(new SliderVideojuegos(R.drawable.wide7));
         sliderVideojuegos.add(new SliderVideojuegos(R.drawable.wide8));
         sliderVideojuegos.add(new SliderVideojuegos(R.drawable.wide9));
-
 
         viewPager2.setAdapter(new SliderAdapter(sliderVideojuegos, viewPager2));
         viewPager2.setClipToPadding(false);
@@ -143,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewGenero.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewNuevosLanzamientos = findViewById(R.id.recyclerviewNuevosLanzamientos);
         recyclerViewNuevosLanzamientos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        progressBarTendencias = findViewById(R.id.progressBarrTendencias);
+        progressBarTendencias = findViewById(R.id.progressBarTendencias);
         progressBarGenero = findViewById(R.id.progressBarGenero);
         progressBarNuevosLanzamientos = findViewById(R.id.progressBarNuevosLanzamientos);
 
