@@ -9,5 +9,7 @@ public class SliderVideojuegos {
     public int getImage() { return image; }
 
     public void setImage(int image) { this.image = image; }
+
+    public Videojuego getVideojuego(Videojuego videojuego) { return videojuego; }
 }
 

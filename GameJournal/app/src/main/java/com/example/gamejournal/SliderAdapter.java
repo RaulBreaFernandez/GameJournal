@@ -65,7 +65,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         }
     }
 
-
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {

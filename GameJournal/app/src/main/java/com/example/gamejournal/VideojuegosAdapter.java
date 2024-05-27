@@ -1,6 +1,7 @@
 package com.example.gamejournal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,16 @@ public class VideojuegosAdapter extends RecyclerView.Adapter<VideojuegosAdapter.
     private List<Videojuego> videojuegoList;
     private ImageView fotoVideojuego;
     private TextView tituloVideojuego;
+    private OnItemClickListener listener;
 
-    public VideojuegosAdapter(List<Videojuego> videojuegoList, Context context) {
+    public interface OnItemClickListener {
+        void onItemClick(Videojuego videojuego);
+    }
+
+    public VideojuegosAdapter(List<Videojuego> videojuegoList, Context context, OnItemClickListener listener) {
         this.videojuegoList = videojuegoList;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -38,6 +45,13 @@ public class VideojuegosAdapter extends RecyclerView.Adapter<VideojuegosAdapter.
     public void onBindViewHolder(@NonNull VideojuegosAdapter.ViewHolder holder, int position) {
         Videojuego videojuego = videojuegoList.get(position);
         holder.bind(videojuego);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VideojuegosAdapter.onVideojuegoClick(context, videojuego);
+            }
+        });
     }
 
     @Override
@@ -57,5 +71,11 @@ public class VideojuegosAdapter extends RecyclerView.Adapter<VideojuegosAdapter.
             Glide.with(context).load(videojuego.getUrlPoster()).into(fotoVideojuego);
             tituloVideojuego.setText(videojuego.getTitulo());
         }
+    }
+
+    public static void onVideojuegoClick(Context context, Videojuego videojuego) {
+        Intent intent = new Intent(context, VideojuegoDetailActivity.class);
+        intent.putExtra("videojuego", videojuego);
+        context.startActivity(intent);
     }
 }
