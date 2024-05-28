@@ -152,6 +152,40 @@
                 android:layout_marginTop="10dp">
             </TextView>
 
+            <CheckBox
+                android:id="@+id/checkboxJugado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:text="Lo he jugado"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/textoResumen"
+                app:layout_constraintStart_toStartOf="parent">
+            </CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkBoxRecomendado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Lo recomiendo"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/checkboxJugado"
+                app:layout_constraintStart_toStartOf="parent">
+            </CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkBoxQuiero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Lo quiero"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/checkBoxRecomendado"
+                app:layout_constraintStart_toStartOf="parent">
+            </CheckBox>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

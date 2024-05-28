@@ -3,13 +3,11 @@ package com.example.gamejournal;
 public class SliderVideojuegos {
 
     private int image;
-
+    private Videojuego videojuego;
     public SliderVideojuegos(int image) { this.image = image; }
 
     public int getImage() { return image; }
 
-    public void setImage(int image) { this.image = image; }
-
-    public Videojuego getVideojuego(Videojuego videojuego) { return videojuego; }
+    public Videojuego getVideojuego() { return videojuego; }
 }
 
