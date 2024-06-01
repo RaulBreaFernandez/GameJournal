@@ -23,6 +23,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     private List<SliderVideojuegos>sliderVideojuegos;
     private ViewPager2 viewPager2;
     private Context context;
+    private OnItemClickListener mListener;
 
     public SliderAdapter(List<SliderVideojuegos> sliderVideojuegos, ViewPager2 viewPager2) {
         this.sliderVideojuegos = sliderVideojuegos;
@@ -43,6 +44,15 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         if (position == sliderVideojuegos.size() - 2) {
             viewPager2.post(runnable);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -72,4 +82,12 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             notifyDataSetChanged();
         }
     };
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 }

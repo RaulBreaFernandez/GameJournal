@@ -2,6 +2,7 @@ package com.example.gamejournal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -18,15 +19,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView.Adapter adpaterTendencias, adapterGenero, adapterNuevosLanzamientos;
+    private RecyclerView.Adapter adapaterTendencias, adapterGenero, adapterNuevosLanzamientos;
     private RecyclerView recyclerViewTendencias, recyclerViewGenero, recyclerViewNuevosLanzamientos;
     private ProgressBar progressBarTendencias, progressBarGenero, progressBarNuevosLanzamientos;
     private ViewPager2 viewPager2;
     private Handler slideHandler = new Handler();
     private List<Videojuego> videojuegoList = new ArrayList<>();
     private List<Videojuego> proximoVideojuegoList = new ArrayList<>();
+    private List<Videojuego> sliderVideojuegoList = new ArrayList<>();
     private List<String> generoList = new ArrayList<>();
     private VideojuegosAdapter.OnItemClickListener listener;
+    private VideojuegosGeneroAdapter.OnGeneroClickListener onGeneroClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
         proximoVideojuegoList.add(new Videojuego("Titan Quest II", "RPG", "Grimlore Games", 2024, "https://image.api.playstation.com/vulcan/ap/rnd/202308/0412/5f29b8a9df639fa8cf89ea61346a6eabd96257de5505d9f4.jpg", "Regresa al escenario inspirado en la mitología clásica de Titan Quest y enfréntate a monstruos legendarios en tu viaje por una recreación fantástica de la antigua Grecia. Némesis, la diosa del castigo, está fuera de control. Ha corrompido los Hilos del Destino y condena a quienquiera que se oponga a su castigo eterno..., como tú. Toma tu arma, lucha junto a los dioses y cambia el propio destino para detener a Némesis, liberar a aquellos a los que ha castigado y forjar tu propia leyenda. De los creadores de SpellForce 3, llega un RPG de acción diseñado para una nueva generación de héroes mitológicos.", 0, "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1154030/capsule_616x353.jpg?t=1709285132"));
         proximoVideojuegoList.add(new Videojuego("F1 24", "Carreras", "Codemasters", 2024, "https://image.api.playstation.com/vulcan/ap/rnd/202404/0814/4b28d6615b99f1c325c5f9e6b15a362116c19fff01e37e62.png", "Únete a la parrilla y forma parte de los 20. Conduce como los mejores en EA SPORTS™ F1® 24, el videojuego oficial del 2024 FIA Formula One World Championship™.", 0, "https://cdn1.epicgames.com/offer/edffc5fcc62140a7afd239d9e65df463/EGS_F124StandardEdition_Codemasters_S1_2560x1440-b36f31537d367449b39fa18ef2afe862"));
 
+        sliderVideojuegoList.add(new Videojuego("Elden Ring", "RPG", "From Software", 2022, "", "Álzate, Sinluz, y que la gracia te guíe para abrazar el poder del Círculo de Elden y encumbrarte como señor del Círculo en las Tierras Intermedias.", 9.6, "https://periodismo.ull.es/wp-content/uploads/2022/04/Se-rumorea-que-Elden-Ring-realizara-proximamente-una-nueva-prueba.jpg" ));
+        sliderVideojuegoList.add(new Videojuego("Cyberpunk 2077", "RPG", "CD Project Red", 2020, "", "Cyberpunk 2077 es un RPG de aventura y acción de mundo abierto ambientado en el futuro sombrío de Night City, una peligrosa megalópolis obsesionada con el poder, el glamur y las incesantes modificaciones corporales.", 8.6, "https://cdn1.epicgames.com/offer/77f2b98e2cef40c8a7437518bf420e47/EGS_Cyberpunk2077_CDPROJEKTRED_S1_03_2560x1440-359e77d3cd0a40aebf3bbc130d14c5c7" ));
+        sliderVideojuegoList.add(new Videojuego("Titan Quest Anniversary Edition", "RPG", "Iron Lore Entertainment", 2016, "", "Los titanes han escapado de su prisión eterna y siembran el caos en el mundo. Los dioses buscan a un héroe que pueda cambiar el curso de una lucha épica que decidirá tanto el destino de los dioses como el de la humanidad. En esta épica cruzada del bien contra el mal, los jugadores conocerán a los mayores villanos de la mitología griega, se enfrentarán a Cerbero y se aventurarán en las orillas del río Estigia.", 8.6, "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_TitanQuest_image1600w.jpg"));
+        sliderVideojuegoList.add(new Videojuego("Forza Horizon 4", "Carreras", "Playground Games", 2021, "", "Las estaciones dinámicas lo cambian todo en el mejor festival automovilístico del mundo. Ve por cuenta propia o únete a otros equipos para explorar la hermosa e histórica Gran Bretaña en un mundo abierto compartido.", 9.2, "https://i.ytimg.com/vi/RCRYs7yfeo4/maxresdefault.jpg" ));
+        sliderVideojuegoList.add(new Videojuego("Valorant", "Shooter", "Riot Games", 2020, "", "Valorant es un hero shooter en primera persona ambientado en un futuro próximo. Los jugadores asumen el control de agentes, personajes que provienen de una gran cantidad de países y culturas de todo el mundo.", 8.0, "https://i.blogs.es/3f15c2/valorant/1366_2000.jpg" ));
+        sliderVideojuegoList.add(new Videojuego("Age of Empires II: Definitive Edition", "Estrategia", "Forgotten Empires", 2019, "", "Disfruta como nunca de todas las campañas originales y las expansiones más vendidas. ¡Te aguarda una experiencia de juego de más de 200 horas que abarca todo un milenio de la historia humana! Juega en línea para desafiar a otros jugadores en tu empresa por dominar el mundo con 35 civilizaciones diferentes.", 8.4, "https://gaming-cdn.com/images/products/4820/orig/age-of-empires-ii-definitive-edition-definitive-edition-pc-juego-steam-cover.jpg?v=1713188935" ));
+        sliderVideojuegoList.add(new Videojuego("Los Sims 4", "Simulación", "Electronic Arts", 2014, "", "Disfruta del poder de crear y controlar a personas en un mundo virtual donde no hay reglas. ¡Ejerce tu poder con total libertad, diviértete y juega a la vida!", 7.0, "https://cdn1.epicgames.com/offer/2a14cf8a83b149919a2399504e5686a6/SIMS4_EPIC_LANDSCAPE-Product-Image_2560x1440_2560x1440-9072dd5d94cccaf50d8b3edede5ba8a9" ));
+        sliderVideojuegoList.add(new Videojuego("Super Mario Bros U Deluxe", "Plataformas", "Nintendo", 2019, "", "Corre, salta y pega pisotones de campeonato a lo largo de más de 160 niveles en 2D de desplazamiento lateral. New Super Mario Bros. U Deluxe para Nintendo Switch recupera el estilo de los juegos clásicos de Super Mario. Hasta cuatro jugadores pueden aunar fuerzas para recoger monedas y derrotar a los enemigos de camino al banderín. También pueden competir de manera amistosa para ver quién reúne más monedas. Sea como sea, la diversión está asegurada.", 8.4, "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_NewSuperMarioBrosUDeluxe_image1600w.jpg" ));
+
         generoList.add("RPG");
         generoList.add("Shooter");
         generoList.add("Plataformas");
@@ -65,18 +77,46 @@ public class MainActivity extends AppCompatActivity {
         generoList.add("Simulación");
         generoList.add("Deportes");
         generoList.add("Estrategia");
+        generoList.add("Cualquier género");
     }
 
     private void setupRecyclerViews() {
         // Configuración del adaptador y del RecyclerView para tendencias
-        adpaterTendencias = new VideojuegosAdapter(videojuegoList, this, listener);
-        recyclerViewTendencias.setAdapter(adpaterTendencias);
+        adapaterTendencias = new VideojuegosAdapter(videojuegoList, this, listener);
+        recyclerViewTendencias.setAdapter(adapaterTendencias);
         // Configuración del adaptador y del RecyclerView para nuevos lanzamientos
         adapterNuevosLanzamientos = new VideojuegosAdapter(proximoVideojuegoList, this, listener);
         recyclerViewNuevosLanzamientos.setAdapter(adapterNuevosLanzamientos);
         // Configuración del adaptador y del RecyclerView para los géneros
-        adapterGenero = new VideojuegosGeneroAdapter(generoList, this);
+        adapterGenero = new VideojuegosGeneroAdapter(generoList, this, new VideojuegosGeneroAdapter.OnGeneroClickListener() {
+            @Override
+            public void onGeneroClick(String genero) {
+                // Filtrar los videojuegos de tendencias por género
+                List<Videojuego> filteredTendencias = filterVideojuegosByGenero(genero, videojuegoList);
+                adapaterTendencias = new VideojuegosAdapter(filteredTendencias, MainActivity.this, listener);
+                recyclerViewTendencias.setAdapter(adapaterTendencias);
+
+                // Filtrar los nuevos lanzamientos por género
+                List<Videojuego> filteredNuevosLanzamientos = filterVideojuegosByGenero(genero, proximoVideojuegoList);
+                adapterNuevosLanzamientos = new VideojuegosAdapter(filteredNuevosLanzamientos, MainActivity.this, listener);
+                recyclerViewNuevosLanzamientos.setAdapter(adapterNuevosLanzamientos);
+            }
+        });
         recyclerViewGenero.setAdapter(adapterGenero);
+    }
+
+    private List<Videojuego> filterVideojuegosByGenero(String genero, List<Videojuego> videojuegoList) {
+        List<Videojuego> filteredList = new ArrayList<>();
+        if (genero.equals("Cualquier género")) {
+            filteredList.addAll(videojuegoList);
+        } else {
+            for (Videojuego videojuego : videojuegoList) {
+                if (videojuego.getGenero().equalsIgnoreCase(genero)) {
+                    filteredList.add(videojuego);
+                }
+            }
+        }
+        return filteredList;
     }
 
     private void loadVideojuegos() {
@@ -124,6 +164,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        SliderAdapter sliderAdapter = (SliderAdapter) viewPager2.getAdapter();
+        if (sliderAdapter != null) {
+            sliderAdapter.setOnItemClickListener(new SliderAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    // Obtener el videojuego seleccionado desde la lista de videojuegos en la posición dada
+                    Videojuego selectedVideojuego = sliderVideojuegoList.get(position);
+                    // Iniciar la actividad de detalles del videojuego
+                    Intent intent = new Intent(MainActivity.this, VideojuegoDetailActivity.class);
+                    intent.putExtra("videojuego", selectedVideojuego);
+                    startActivity(intent);
+                }
+            });
+        }
+
     }
 
     private Runnable sliderRunnable = new Runnable() {
@@ -145,19 +200,19 @@ public class MainActivity extends AppCompatActivity {
         slideHandler.postDelayed(sliderRunnable, 2000);
     }
 
-    private void initView() {
-        viewPager2 = findViewById(R.id.viewPager);
-        recyclerViewTendencias = findViewById(R.id.recyclerviewTendencias);
-        recyclerViewTendencias.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewGenero = findViewById(R.id.recyclerviewGenero);
-        recyclerViewGenero.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewNuevosLanzamientos = findViewById(R.id.recyclerviewNuevosLanzamientos);
-        recyclerViewNuevosLanzamientos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        progressBarTendencias = findViewById(R.id.progressBarTendencias);
-        progressBarGenero = findViewById(R.id.progressBarGenero);
-        progressBarNuevosLanzamientos = findViewById(R.id.progressBarNuevosLanzamientos);
-    }
+private void initView() {
+    viewPager2 = findViewById(R.id.viewPager);
+    recyclerViewTendencias = findViewById(R.id.recyclerviewTendencias);
+    recyclerViewTendencias.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    recyclerViewGenero = findViewById(R.id.recyclerviewGenero);
+    recyclerViewGenero.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    recyclerViewNuevosLanzamientos = findViewById(R.id.recyclerviewNuevosLanzamientos);
+    recyclerViewNuevosLanzamientos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    progressBarTendencias = findViewById(R.id.progressBarTendencias);
+    progressBarGenero = findViewById(R.id.progressBarGenero);
+    progressBarNuevosLanzamientos = findViewById(R.id.progressBarNuevosLanzamientos);
 
+    }
     public void onVideojuegoClick(Videojuego videojuego) {
         Intent intent = new Intent(MainActivity.this, VideojuegoDetailActivity.class);
         intent.putExtra("videojuego", videojuego);

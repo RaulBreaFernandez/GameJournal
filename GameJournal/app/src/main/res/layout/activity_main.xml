@@ -17,25 +17,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editTextSearch"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:textColor="@color/white"
-                android:layout_margin="16dp"
-                android:drawablePadding="8dp"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
-                android:padding="12dp"
-                android:inputType="text"
-                android:drawableEnd="@drawable/lupa"
-                android:drawableTint="@color/white"
-                android:background="@drawable/edit_text_background"
-                android:hint="Busca un juego ..."
-                android:textColorHint="@color/white">
-            </EditText>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
@@ -46,6 +27,7 @@
                     android:layout_height="match_parent"
                     android:paddingEnd="60dp"
                     android:paddingStart="60dp"
+                    android:layout_marginTop="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintBaseline_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
