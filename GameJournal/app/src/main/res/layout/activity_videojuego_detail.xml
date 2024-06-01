@@ -48,6 +48,19 @@
                     app:layout_constraintStart_toStartOf="parent">
                 </ImageView>
 
+                <ImageView
+                    android:id="@+id/Corazon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/corazon"
+                    android:background="@drawable/back_button"
+                    app:tint="@color/white"
+                    android:padding="6dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                </ImageView>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

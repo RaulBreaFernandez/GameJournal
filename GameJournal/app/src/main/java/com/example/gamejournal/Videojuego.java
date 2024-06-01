@@ -7,8 +7,9 @@ public class Videojuego implements Serializable {
     private String titulo, genero, desarrolladora, urlPoster, sinopsis, urlPosterDetalle;
     private int ano;
     private double puntuacion;
+    boolean favorito;
 
-    public Videojuego(String titulo, String genero, String desarrolladora, int ano, String urlPoster, String sinopsis, double puntuacion, String urlPosterDetalle) {
+    public Videojuego(String titulo, String genero, String desarrolladora, int ano, String urlPoster, String sinopsis, double puntuacion, String urlPosterDetalle, Boolean favorito) {
         this.titulo = titulo;
         this.genero = genero;
         this.desarrolladora = desarrolladora;
@@ -17,6 +18,7 @@ public class Videojuego implements Serializable {
         this.sinopsis = sinopsis;
         this.puntuacion = puntuacion;
         this.urlPosterDetalle = urlPosterDetalle;
+        this.favorito = favorito;
     }
 
     public String getUrlPosterDetalle() { return urlPosterDetalle; }
@@ -35,4 +37,7 @@ public class Videojuego implements Serializable {
 
     public int getAno() { return ano; }
 
+    public boolean isFavorito() { return favorito; }
+
+    public void setFavorito(boolean favorito) { this.favorito = favorito; }
 }

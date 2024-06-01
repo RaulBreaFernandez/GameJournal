@@ -10,16 +10,18 @@ import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 public class VideojuegoDetailActivity extends AppCompatActivity {
 
     private TextView tituloVideojuego, puntuacionVideojuego,textoResumen, anoVideojuego, desarrolladora;
-    private ImageView imageViewJuego, flechaAtras;
+    private ImageView imageViewJuego, flechaAtras, corazon;
     private Videojuego videojuego;
     private SharedPreferences sharedPreferences;
     private CheckBox jugado, loQuiero, loRecomiendo;
+    boolean favorito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,21 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
             initView();
             loadVideojuegoData();
         }
+
+        corazon = findViewById(R.id.Corazon);
+        // Establece un clic Listener para el corazón
+        corazon.setOnClickListener(v -> {
+            // Cambia el color del corazón y muestra un Toast
+            if (favorito) {
+                corazon.setImageResource(R.drawable.corazon); // Cambia a la imagen de corazón blanco
+                favorito = false;
+                Toast.makeText(getApplicationContext(), "Juego eliminado de favoritos", Toast.LENGTH_SHORT).show();
+            } else {
+                corazon.setImageResource(R.drawable.corazon_rojo); // Cambia a la imagen de corazón rojo
+                favorito = true;
+                Toast.makeText(getApplicationContext(), "Juego añadido a favoritos", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initView() {
