@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         sliderVideojuegoList.add(new Videojuego("Los Sims 4", "Simulación", "Electronic Arts", 2014, "", "Disfruta del poder de crear y controlar a personas en un mundo virtual donde no hay reglas. ¡Ejerce tu poder con total libertad, diviértete y juega a la vida!", 7.0, "https://cdn1.epicgames.com/offer/2a14cf8a83b149919a2399504e5686a6/SIMS4_EPIC_LANDSCAPE-Product-Image_2560x1440_2560x1440-9072dd5d94cccaf50d8b3edede5ba8a9" ));
         sliderVideojuegoList.add(new Videojuego("Super Mario Bros U Deluxe", "Plataformas", "Nintendo", 2019, "", "Corre, salta y pega pisotones de campeonato a lo largo de más de 160 niveles en 2D de desplazamiento lateral. New Super Mario Bros. U Deluxe para Nintendo Switch recupera el estilo de los juegos clásicos de Super Mario. Hasta cuatro jugadores pueden aunar fuerzas para recoger monedas y derrotar a los enemigos de camino al banderín. También pueden competir de manera amistosa para ver quién reúne más monedas. Sea como sea, la diversión está asegurada.", 8.4, "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_NewSuperMarioBrosUDeluxe_image1600w.jpg" ));
 
+        generoList.add("Cualquier género");
         generoList.add("RPG");
         generoList.add("Shooter");
         generoList.add("Plataformas");
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         generoList.add("Simulación");
         generoList.add("Deportes");
         generoList.add("Estrategia");
-        generoList.add("Cualquier género");
     }
 
     private void setupRecyclerViews() {
@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 List<Videojuego> filteredTendencias = filterVideojuegosByGenero(genero, videojuegoList);
                 adapaterTendencias = new VideojuegosAdapter(filteredTendencias, MainActivity.this, listener);
                 recyclerViewTendencias.setAdapter(adapaterTendencias);
-
                 // Filtrar los nuevos lanzamientos por género
                 List<Videojuego> filteredNuevosLanzamientos = filterVideojuegosByGenero(genero, proximoVideojuegoList);
                 adapterNuevosLanzamientos = new VideojuegosAdapter(filteredNuevosLanzamientos, MainActivity.this, listener);
@@ -212,11 +211,6 @@ private void initView() {
     progressBarGenero = findViewById(R.id.progressBarGenero);
     progressBarNuevosLanzamientos = findViewById(R.id.progressBarNuevosLanzamientos);
 
-    }
-    public void onVideojuegoClick(Videojuego videojuego) {
-        Intent intent = new Intent(MainActivity.this, VideojuegoDetailActivity.class);
-        intent.putExtra("videojuego", videojuego);
-        startActivity(intent);
     }
 
 }
