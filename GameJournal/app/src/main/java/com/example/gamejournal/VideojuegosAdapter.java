@@ -79,8 +79,4 @@ public class VideojuegosAdapter extends RecyclerView.Adapter<VideojuegosAdapter.
         context.startActivity(intent);
     }
 
-    public void filterList(List<Videojuego> filteredList) {
-        videojuegoList = filteredList;
-    }
-
 }
