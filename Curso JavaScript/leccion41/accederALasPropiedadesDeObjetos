@@ -1,0 +1,30 @@
+let x = 10;
+let y = "Raúl"
+
+let persona = {
+
+    nombre: "Raúl",
+    apellido: "Brea",
+    edad: 22,
+    email: "raul@gmail.com"
+
+}
+
+console.log(persona['nombre']);
+
+
+//* imprime los nombres de las propiedades
+
+for(nombrePropiedad in persona) {
+
+    console.log(nombrePropiedad);
+    
+}
+
+//* imprime toda la información almacenada en el objeto
+
+for(nombrePropiedad in persona) {
+
+    console.log(persona[nombrePropiedad]);
+    
+}

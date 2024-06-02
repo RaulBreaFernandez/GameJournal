@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_blue"
+    tools:context=".VideojuegoDetailActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewJuegoDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="-90dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            </ImageView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/flechaAtras"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/flecha_atras"
+                    android:background="@drawable/back_button"
+                    app:tint="@color/white"
+                    android:padding="6dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/Corazon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/corazon"
+                    android:background="@drawable/back_button"
+                    app:tint="@color/white"
+                    android:padding="6dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                </ImageView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutPuntuacion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="24dp"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewJuegoDetalle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/textViewPuntuacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/puntuacion"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/anoLanzamientoNumero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ano"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/white"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textViewPuntuacion">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/desarrolladora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="desarrolladora"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/white"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/anoLanzamientoNumero">
+                </TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tituloVideojuego"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/white"
+                android:text="Título"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayoutPuntuacion"
+                app:layout_constraintStart_toStartOf="@id/constraintLayoutPuntuacion"
+                app:layout_constraintEnd_toEndOf="@id/constraintLayoutPuntuacion">
+            </TextView>
+
+            <TextView
+                android:id="@+id/sinopsis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Sinopsis"
+                android:textColor="@color/yellow"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/constraintLayoutPuntuacion"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/textoResumen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Textoresumen"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/sinopsis"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp">
+            </TextView>
+
+            <CheckBox
+                android:id="@+id/checkboxJugado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:text="Lo he jugado"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/textoResumen"
+                app:layout_constraintStart_toStartOf="parent">
+            </CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkBoxRecomendado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Lo recomiendo"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/checkboxJugado"
+                app:layout_constraintStart_toStartOf="parent">
+            </CheckBox>
+
+            <CheckBox
+                android:id="@+id/checkBoxQuiero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Lo quiero"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/checkBoxRecomendado"
+                app:layout_constraintStart_toStartOf="parent">
+            </CheckBox>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
