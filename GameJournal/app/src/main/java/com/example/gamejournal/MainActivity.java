@@ -13,7 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView.Adapter adapaterTendencias, adapterGenero, adapterNuevosLanzamientos;
     private RecyclerView recyclerViewTendencias, recyclerViewGenero, recyclerViewNuevosLanzamientos;
-    private ProgressBar progressBarTendencias, progressBarGenero, progressBarNuevosLanzamientos;
     private ViewPager2 viewPager2;
     private Handler slideHandler = new Handler();
     private List<Videojuego> videojuegoList = new ArrayList<>();
@@ -30,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private List<String> generoList = new ArrayList<>();
     private VideojuegosAdapter.OnItemClickListener listener;
     private VideojuegosGeneroAdapter.OnGeneroClickListener onGeneroClickListener;
+    private ImageView imageViewFavorito;
+    private Boolean favorito = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         initView();
         banners();
         setupRecyclerViews();
-        loadVideojuegos();
 
     }
 
@@ -116,13 +116,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return filteredList;
-    }
-
-    private void loadVideojuegos() {
-            // Una vez cargados los datos, oculta las barras de progreso
-            progressBarTendencias.setVisibility(View.GONE);
-            progressBarGenero.setVisibility(View.GONE);
-            progressBarNuevosLanzamientos.setVisibility(View.GONE);
     }
 
     private void banners() {
@@ -207,10 +200,34 @@ private void initView() {
     recyclerViewGenero.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     recyclerViewNuevosLanzamientos = findViewById(R.id.recyclerviewNuevosLanzamientos);
     recyclerViewNuevosLanzamientos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-    progressBarTendencias = findViewById(R.id.progressBarTendencias);
-    progressBarGenero = findViewById(R.id.progressBarGenero);
-    progressBarNuevosLanzamientos = findViewById(R.id.progressBarNuevosLanzamientos);
+    imageViewFavorito = findViewById(R.id.corazon);
 
+    imageViewFavorito.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            favorito = !favorito;
+            filterAndRefreshRecyclerViews();
+        }
+    });
+    }
+    private void filterAndRefreshRecyclerViews() {
+        List<Videojuego> filteredTendencias = favorito ? filterVideojuegosByFavorites(videojuegoList) : videojuegoList;
+        adapaterTendencias = new VideojuegosAdapter(filteredTendencias, this, listener);
+        recyclerViewTendencias.setAdapter(adapaterTendencias);
+
+        List<Videojuego> filteredNuevosLanzamientos = favorito ? filterVideojuegosByFavorites(proximoVideojuegoList) : proximoVideojuegoList;
+        adapterNuevosLanzamientos = new VideojuegosAdapter(filteredNuevosLanzamientos, this, listener);
+        recyclerViewNuevosLanzamientos.setAdapter(adapterNuevosLanzamientos);
+    }
+
+    private List<Videojuego> filterVideojuegosByFavorites(List<Videojuego> videojuegos) {
+        List<Videojuego> favorites = new ArrayList<>();
+        for (Videojuego videojuego : videojuegos) {
+            if (videojuego.isFavorito()) {
+                favorites.add(videojuego);
+            }
+        }
+        return favorites;
     }
 
 }

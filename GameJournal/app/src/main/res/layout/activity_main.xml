@@ -68,17 +68,6 @@
                     app:layout_constraintVertical_bias="0.0">
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <ProgressBar
-                    android:id="@+id/progressBarTendencias"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/progressBarStyle"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-                </ProgressBar>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -110,17 +99,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
                 </androidx.recyclerview.widget.RecyclerView>
-
-                <ProgressBar
-                    android:id="@+id/progressBarNuevosLanzamientos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/progressBarStyle"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-                </ProgressBar>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -155,17 +133,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0">
                 </androidx.recyclerview.widget.RecyclerView>
-
-                <ProgressBar
-                    android:id="@+id/progressBarGenero"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/progressBarStyle"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/recyclerviewGenero"
-                    app:layout_constraintStart_toStartOf="@id/recyclerviewGenero">
-                </ProgressBar>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -220,7 +187,7 @@
                             android:layout_weight="0.25">
 
                             <ImageView
-                                android:id="@+id/image2"
+                                android:id="@+id/corazon"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:layout_gravity="center"

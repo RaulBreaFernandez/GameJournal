@@ -64,14 +64,14 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
         loQuiero = findViewById(R.id.checkBoxQuiero);
         loRecomiendo = findViewById(R.id.checkBoxRecomendado);
         flechaAtras.setOnClickListener(v -> finish());
-
+        corazon = findViewById(R.id.corazon);
         jugado.setChecked(sharedPreferences.getBoolean(gameId + "_jugado", false));
         loRecomiendo.setChecked(sharedPreferences.getBoolean(gameId + "_recomendado", false));
-
         // Asigna un listener a cada CheckBox para guardar su estado en SharedPreferences cuando cambien
         jugado.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_jugado", isChecked));
         loRecomiendo.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_recomendado", isChecked));
         loQuiero.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_quiero", isChecked));
+        favorito = sharedPreferences.getBoolean(videojuego.getTitulo() + "_favorito", false);
     }
 
     private void loadVideojuegoData() {
@@ -93,6 +93,24 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
         jugado.setChecked(sharedPreferences.getBoolean(gameId + "_jugado", false));
         loRecomiendo.setChecked(sharedPreferences.getBoolean(gameId + "_recomendado", false));
         loQuiero.setChecked(sharedPreferences.getBoolean(gameId + "_quiero", false));
+
+        // Restaurar el estado de favorito
+        favorito = sharedPreferences.getBoolean(gameId + "_favorito", false);
+        // Actualizar la imagen del corazón
+        if (favorito) {
+            corazon.setImageResource(R.drawable.corazon_rojo); // Cambia a la imagen de corazón rojo
+        } else {
+            corazon.setImageResource(R.drawable.corazon); // Cambia a la imagen de corazón blanco
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Guardar el estado de favorito al salir de la actividad
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(videojuego.getTitulo() + "_favorito", favorito);
+        editor.apply();
     }
 
     protected void isChecked() {
@@ -105,17 +123,6 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
         jugado.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_jugado", isChecked));
         loRecomiendo.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_recomendado", isChecked));
         loQuiero.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_quiero", isChecked));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Guardar el estado de los CheckBox al salir de la actividad
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("checkbox_jugado", jugado.isChecked());
-        editor.putBoolean("checkbox_recomendado", loRecomiendo.isChecked());
-        editor.putBoolean("checkbox_quiero", loQuiero.isChecked());
-        editor.apply();
     }
 
     // Método para guardar el estado de un CheckBox en SharedPreferences
