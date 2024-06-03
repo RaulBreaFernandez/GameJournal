@@ -33,10 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private List<Videojuego> sliderVideojuegoList = new ArrayList<>();
     private List<String> generoList = new ArrayList<>();
     private VideojuegosAdapter.OnItemClickListener listener;
-    private VideojuegosGeneroAdapter.OnGeneroClickListener onGeneroClickListener;
-    private ImageView imageViewFavorito;
+    private ImageView imageViewFavorito, imageViewOpciones, imageViewCuenta;
     private Boolean favorito = false;
-    private Boolean showingFavorites = false;
+    private Boolean mostrarFavorito = false;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -108,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
                 List<Videojuego> filteredNuevosLanzamientos = filterVideojuegosByGenero(genero, proximoVideojuegoList);
                 adapterNuevosLanzamientos = new VideojuegosAdapter(filteredNuevosLanzamientos, MainActivity.this, listener);
                 recyclerViewNuevosLanzamientos.setAdapter(adapterNuevosLanzamientos);
+                if(genero == "Cualquier género") {
+                    Toast.makeText(MainActivity.this, "Mostrando todos los juegos", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Mostrando los juegos del género "+genero.toLowerCase(), Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         recyclerViewGenero.setAdapter(adapterGenero);
@@ -210,6 +215,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewNuevosLanzamientos = findViewById(R.id.recyclerviewNuevosLanzamientos);
         recyclerViewNuevosLanzamientos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         imageViewFavorito = findViewById(R.id.corazon);
+        imageViewOpciones = findViewById(R.id.imageViewOpciones);
+        imageViewCuenta = findViewById(R.id.cuenta);
 
         imageViewFavorito.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +229,22 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
                 // Actualizar la lista de juegos favoritos y notificar a los adaptadores
                 toggleFavoriteView();
+            }
+        });
+
+        imageViewOpciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, OpcionesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CuentaActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -238,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
         // Actualizar el adaptador de tendencias con la lista de favoritos
         adapterTendencias = new VideojuegosAdapter(favoritosTendencias, MainActivity.this, listener);
         recyclerViewTendencias.setAdapter(adapterTendencias);
+
         // Filtrar los juegos favoritos de la lista de nuevos lanzamientos
         favoritosNuevosLanzamientos.clear();
         for (Videojuego videojuego : proximoVideojuegoList) {
@@ -251,13 +275,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toggleFavoriteView() {
-        if (showingFavorites) {
+        if (mostrarFavorito) {
             // Mostrar las listas originales
             adapterTendencias = new VideojuegosAdapter(videojuegoList, this, listener);
             recyclerViewTendencias.setAdapter(adapterTendencias);
             adapterNuevosLanzamientos = new VideojuegosAdapter(proximoVideojuegoList, this, listener);
             recyclerViewNuevosLanzamientos.setAdapter(adapterNuevosLanzamientos);
-            showingFavorites = false;
+            mostrarFavorito = false;
         } else {
             // Mostrar solo favoritos
             adapterTendencias = new VideojuegosAdapter(favoriteVideojuegoList, this, listener);
@@ -265,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
             // Vaciar el adaptador de nuevos lanzamientos si no hay favoritos correspondientes
             adapterNuevosLanzamientos = new VideojuegosAdapter(new ArrayList<>(), this, listener);
             recyclerViewNuevosLanzamientos.setAdapter(adapterNuevosLanzamientos);
-            showingFavorites = true;
+            mostrarFavorito = true;
             actualizarFavoritos();
             Toast.makeText(MainActivity.this, "Mostrando videojuegos favoritos", Toast.LENGTH_SHORT).show();
         }
