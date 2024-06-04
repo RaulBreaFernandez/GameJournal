@@ -1,6 +1,11 @@
 # GameJournal
 <img src = "https://github.com/RaulBreaFernandez/GameJournal/assets/145338589/a19fa0b1-8e1d-46c7-92e1-3d4fcd7b4d00" width="350" height="350">
 
+<p align="left">
+  <img src="https://img.shields.io/badge/STATUS-EN DESARROLLO-green">
+  <img src="https://img.shields.io/badge/Java-orange">
+  <img src="https://img.shields.io/badge/Glide-blue">
+</p>
 
 <h1>🚧 Proyecto en desarrollo🚧</h1>
 Actualmente estoy desarrollando la apliación.
