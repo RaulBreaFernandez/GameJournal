@@ -117,19 +117,6 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
         editor.putBoolean(videojuego.getTitulo() + "_favorito", favorito);
         editor.apply();
     }
-
-    // Método para restaurar el estado de los CheckBox
-    protected void isChecked() {
-        String gameId = videojuego.getTitulo(); // Utiliza el título del juego como identificador único
-        // Restaurar el estado de los CheckBox desde SharedPreferences
-        jugado.setChecked(sharedPreferences.getBoolean(gameId + "_jugado", false));
-        loRecomiendo.setChecked(sharedPreferences.getBoolean(gameId + "_recomendado", false));
-        loQuiero.setChecked(sharedPreferences.getBoolean(gameId + "_quiero", false));
-        // Listeners para guardar el estado de los CheckBox en SharedPreferences cuando cambien
-        jugado.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_jugado", isChecked));
-        loRecomiendo.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_recomendado", isChecked));
-        loQuiero.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_quiero", isChecked));
-    }
     // Método para guardar el estado de un CheckBox en SharedPreferences
     private void saveCheckBoxState(String key, boolean isChecked) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
