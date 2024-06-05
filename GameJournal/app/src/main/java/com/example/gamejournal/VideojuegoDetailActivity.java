@@ -16,7 +16,8 @@ import com.bumptech.glide.Glide;
 
 public class VideojuegoDetailActivity extends AppCompatActivity {
 
-    private TextView tituloVideojuego, puntuacionVideojuego,textoResumen, anoVideojuego, desarrolladora;
+    // Declaración de variables de la interfaz de usuario y otros elementos
+    private TextView tituloVideojuego, puntuacionVideojuego, textoResumen, anoVideojuego, desarrolladora;
     private ImageView imageViewJuego, flechaAtras, corazon;
     private Videojuego videojuego;
     private SharedPreferences sharedPreferences;
@@ -27,18 +28,19 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videojuego_detail);
+        // Inicialización de SharedPreferences
         sharedPreferences = getSharedPreferences("MisPrefs", Context.MODE_PRIVATE);
-
+        // Obtención del objeto Videojuego pasado a través del Intent
         videojuego = (Videojuego) getIntent().getSerializableExtra("videojuego");
         if (videojuego != null) {
             initView();
             loadVideojuegoData();
         }
-
+        // Inicialización del ImageView corazon
         corazon = findViewById(R.id.Corazon);
-        // Establece un clic Listener para el corazón
+        // Establece un listener para manejar el clic en el corazón
         corazon.setOnClickListener(v -> {
-            // Cambia el color del corazón y muestra un Toast
+            // Alterna el estado de favorito y actualiza la interfaz de usuario y muestra un Toast
             if (favorito) {
                 corazon.setImageResource(R.drawable.corazon); // Cambia a la imagen de corazón blanco
                 favorito = false;
@@ -50,9 +52,9 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
             }
         });
     }
-
+    // Método para inicializar las vistas y configurar los listeners
     private void initView() {
-        String gameId = videojuego.getTitulo();
+        String gameId = videojuego.getTitulo(); // Utiliza el título del juego como identificador único
         tituloVideojuego = findViewById(R.id.tituloVideojuego);
         textoResumen = findViewById(R.id.textoResumen);
         imageViewJuego = findViewById(R.id.imageViewJuegoDetalle);
@@ -63,23 +65,27 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
         jugado = findViewById(R.id.checkboxJugado);
         loQuiero = findViewById(R.id.checkBoxQuiero);
         loRecomiendo = findViewById(R.id.checkBoxRecomendado);
+        // Listener para el botón de retroceso
         flechaAtras.setOnClickListener(v -> finish());
-        corazon = findViewById(R.id.corazon);
+        // Inicialización del estado de los CheckBox desde SharedPreferences
         jugado.setChecked(sharedPreferences.getBoolean(gameId + "_jugado", false));
         loRecomiendo.setChecked(sharedPreferences.getBoolean(gameId + "_recomendado", false));
-        // Asigna un listener a cada CheckBox para guardar su estado en SharedPreferences cuando cambien
+        // Listeners para guardar el estado de los CheckBox en SharedPreferences cuando cambien
         jugado.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_jugado", isChecked));
         loRecomiendo.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_recomendado", isChecked));
         loQuiero.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_quiero", isChecked));
+        // Inicialización del estado de favorito desde SharedPreferences
         favorito = sharedPreferences.getBoolean(videojuego.getTitulo() + "_favorito", false);
     }
 
+    // Método para cargar los datos del videojuego en las vistas correspondientes
     private void loadVideojuegoData() {
         tituloVideojuego.setText(videojuego.getTitulo());
         textoResumen.setText(videojuego.getSinopsis());
         anoVideojuego.setText(String.valueOf(videojuego.getAno()));
         desarrolladora.setText(videojuego.getDesarrolladora());
         puntuacionVideojuego.setText(String.valueOf(videojuego.getPuntuacion()));
+        // Uso de Glide para cargar la imagen del videojuego en el ImageView
         Glide.with(this)
                 .load(videojuego.getUrlPosterDetalle())
                 .into(imageViewJuego);
@@ -89,14 +95,13 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         String gameId = videojuego.getTitulo(); // Obtener el identificador único del juego
-        // Restaurar el estado de los CheckBox del juego actual
+        // Restaurar el estado de los CheckBox del juego actual desde SharedPreferences
         jugado.setChecked(sharedPreferences.getBoolean(gameId + "_jugado", false));
         loRecomiendo.setChecked(sharedPreferences.getBoolean(gameId + "_recomendado", false));
         loQuiero.setChecked(sharedPreferences.getBoolean(gameId + "_quiero", false));
-
-        // Restaurar el estado de favorito
+        // Restaurar el estado de favorito desde SharedPreferences
         favorito = sharedPreferences.getBoolean(gameId + "_favorito", false);
-        // Actualizar la imagen del corazón
+        // Actualizar la imagen del corazón según el estado de favorito
         if (favorito) {
             corazon.setImageResource(R.drawable.corazon_rojo); // Cambia a la imagen de corazón rojo
         } else {
@@ -107,24 +112,24 @@ public class VideojuegoDetailActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        // Guardar el estado de favorito al salir de la actividad
+        // Guardar el estado de favorito en SharedPreferences al salir de la actividad
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(videojuego.getTitulo() + "_favorito", favorito);
         editor.apply();
     }
 
+    // Método para restaurar el estado de los CheckBox
     protected void isChecked() {
         String gameId = videojuego.getTitulo(); // Utiliza el título del juego como identificador único
-        // Restaurar el estado de los CheckBox
+        // Restaurar el estado de los CheckBox desde SharedPreferences
         jugado.setChecked(sharedPreferences.getBoolean(gameId + "_jugado", false));
         loRecomiendo.setChecked(sharedPreferences.getBoolean(gameId + "_recomendado", false));
         loQuiero.setChecked(sharedPreferences.getBoolean(gameId + "_quiero", false));
-        // Listener para guardar el estado de los CheckBox cuando cambian
+        // Listeners para guardar el estado de los CheckBox en SharedPreferences cuando cambien
         jugado.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_jugado", isChecked));
         loRecomiendo.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_recomendado", isChecked));
         loQuiero.setOnCheckedChangeListener((buttonView, isChecked) -> saveCheckBoxState(gameId + "_quiero", isChecked));
     }
-
     // Método para guardar el estado de un CheckBox en SharedPreferences
     private void saveCheckBoxState(String key, boolean isChecked) {
         SharedPreferences.Editor editor = sharedPreferences.edit();

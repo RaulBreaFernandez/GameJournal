@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Videojuego> sliderVideojuegoList = new ArrayList<>();
     private List<String> generoList = new ArrayList<>();
     private VideojuegosAdapter.OnItemClickListener listener;
-    private ImageView imageViewFavorito, imageViewOpciones, imageViewCuenta;
+    private ImageView imageViewFavorito, imageViewOpciones;
     private Boolean favorito = false;
     private Boolean mostrarFavorito = false;
     private SharedPreferences sharedPreferences;
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initVideojuegoLists() {
+
         videojuegoList.add(new Videojuego("Player Unknown Battlegrounds", "Shooter", "Krafton Inc", 2017, "https://image.api.playstation.com/vulcan/ap/rnd/202404/0504/c584205a4d3b37877102318d24775372f9337f19309c7003.jpg", "Aterriza en posiciones estratégicas, saquea armas y suministros, y sobrevive para que vuestro equipo sea el único en pie en los distintos y variados campos de batalla. Forma equipo y participa en los campos de batalla para experimentar el Battle Royale original como solo existe en PUBG: BATTLEGROUNDS.", 8.6, "https://xxboxnews.blob.core.windows.net/prod/sites/2/2022/01/PUBG_NewKeyArt2022.jpg", false));
         videojuegoList.add(new Videojuego("Jump King", "Plataformas", "Nexile", 2024, "https://store-images.s-microsoft.com/image/apps.43518.14346211770606155.4d34dee5-ab84-4876-83bd-1e181ab60f68.aed7275a-ee75-42b6-b785-0c00fea05e73", "Aventura táctica de saltos - Jump King: ¡Hay una buenorra en la cumbre!» es un desafío de plataformas sobre las dificultades durante el ascenso en busca de la legendaria buenorra. Esta solitaria aventura para alcanzar la cumbre te exigirá un dominio absoluto de la técnica del salto. Recuerda que cada caída supone una lección que tienes que aprender...", 7.1, "https://store-images.s-microsoft.com/image/apps.34157.14346211770606155.4d34dee5-ab84-4876-83bd-1e181ab60f68.696c9bfe-31d3-4228-8436-d3d0f48a12b3", false));
         videojuegoList.add(new Videojuego("Stardew Valley", "Simulación", "ConcernedApe", 2016, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAkTvqNvPZdF1XMMo3r1H9qZJdFyEgcoJIpOQOXRZ8Rg&s", "Acabas de heredar la vieja parcela agrícola de tu abuelo de Stardew Valley. Decides partir hacia una nueva vida con unas herramientas usadas y algunas monedas. ¿Te ves capaz de vivir de la tierra y convertir estos campos descuidados en un hogar próspero?", 8.9, "https://images4.alphacoders.com/782/thumb-1920-782781.png", false));
@@ -100,11 +101,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onGeneroClick(String genero) {
                 // Filtrar los videojuegos de tendencias por género
-                List<Videojuego> filteredTendencias = filterVideojuegosByGenero(genero, videojuegoList);
+                List<Videojuego> filteredTendencias = filtrarVideojuegosPorGenero(genero, videojuegoList);
                 adapterTendencias = new VideojuegosAdapter(filteredTendencias, MainActivity.this, listener);
                 recyclerViewTendencias.setAdapter(adapterTendencias);
                 // Filtrar los nuevos lanzamientos por género
-                List<Videojuego> filteredNuevosLanzamientos = filterVideojuegosByGenero(genero, proximoVideojuegoList);
+                List<Videojuego> filteredNuevosLanzamientos = filtrarVideojuegosPorGenero(genero, proximoVideojuegoList);
                 adapterNuevosLanzamientos = new VideojuegosAdapter(filteredNuevosLanzamientos, MainActivity.this, listener);
                 recyclerViewNuevosLanzamientos.setAdapter(adapterNuevosLanzamientos);
                 if(genero == "Cualquier género") {
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewGenero.setAdapter(adapterGenero);
     }
 
-    private List<Videojuego> filterVideojuegosByGenero(String genero, List<Videojuego> videojuegoList) {
+    private List<Videojuego> filtrarVideojuegosPorGenero(String genero, List<Videojuego> videojuegoList) {
         List<Videojuego> filteredList = new ArrayList<>();
         if (genero.equals("Cualquier género")) {
             filteredList.addAll(videojuegoList);
@@ -194,18 +195,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        slideHandler.removeCallbacks(sliderRunnable);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        slideHandler.postDelayed(sliderRunnable, 2000);
-    }
-
     private void initView() {
         viewPager2 = findViewById(R.id.viewPager);
         recyclerViewTendencias = findViewById(R.id.recyclerviewTendencias);
@@ -216,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewNuevosLanzamientos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         imageViewFavorito = findViewById(R.id.corazon);
         imageViewOpciones = findViewById(R.id.imageViewOpciones);
-        imageViewCuenta = findViewById(R.id.cuenta);
 
         imageViewFavorito.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putBoolean("favorito", favorito);
                 editor.apply();
                 // Actualizar la lista de juegos favoritos y notificar a los adaptadores
-                toggleFavoriteView();
+                cambiarVistaFavoritos();
             }
         });
 
@@ -236,14 +224,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, OpcionesActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        imageViewCuenta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CuentaActivity.class);
                 startActivity(intent);
             }
         });
@@ -274,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewNuevosLanzamientos.setAdapter(adapterNuevosLanzamientos);
     }
 
-    private void toggleFavoriteView() {
+    private void cambiarVistaFavoritos() {
         if (mostrarFavorito) {
             // Mostrar las listas originales
             adapterTendencias = new VideojuegosAdapter(videojuegoList, this, listener);

@@ -37,7 +37,4 @@ public class Videojuego implements Serializable {
 
     public int getAno() { return ano; }
 
-    public boolean isFavorito() { return favorito; }
-
-    public void setFavorito(boolean favorito) { this.favorito = favorito; }
 }
